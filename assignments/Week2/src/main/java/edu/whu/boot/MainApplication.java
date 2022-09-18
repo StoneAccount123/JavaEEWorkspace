@@ -5,8 +5,6 @@ import edu.whu.config.Config;
 import edu.whu.config.FileReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -14,7 +12,7 @@ import java.lang.reflect.Method;
  */
 public class MainApplication {
     
-    public Class getMyClass(){
+    public Class<?> getMyClass(){
         ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
         FileReader bean = context.getBean(FileReader.class);
         try {
@@ -33,18 +31,24 @@ public class MainApplication {
         }
         return null;
     }
-    
-    public void invokeMethod(){
+
+
+    public void invokeMethod(Object... args) {
         Object instance = creatObj();
         Method[] methods = getMyClass().getDeclaredMethods();
         for (Method method : methods) {
             if(method.isAnnotationPresent(InitMethod.class)){
                 try {
-                    method.invoke(instance);
+                    method.invoke(instance,args);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
     }
+
+    public static void main(String[] args) {
+        new MainApplication().invokeMethod();
+    }
+
 }
