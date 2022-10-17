@@ -13,9 +13,11 @@ import org.springframework.stereotype.Component;
 @Data
 @PropertySource({"classpath:myapp.properties"})
 public class FileReader {
-    /**
-     *
-     */
+
+    FileReader(){
+        System.out.println("初始化了");
+    }
+
     @Value("${bootstrapClass}")
     private String bootstrapClass;
 
