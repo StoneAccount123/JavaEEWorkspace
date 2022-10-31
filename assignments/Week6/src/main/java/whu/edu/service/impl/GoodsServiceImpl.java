@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import whu.edu.entity.Goods;
 import whu.edu.entity.GoodsDto;
 import whu.edu.entity.Supplier;
@@ -19,6 +20,7 @@ import java.util.List;
 * @description 针对表【t_goods】的数据库操作Service实现
 * @createDate 2022-10-25 18:46:49
 */
+@Transactional
 @Service
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
     implements GoodsService{
